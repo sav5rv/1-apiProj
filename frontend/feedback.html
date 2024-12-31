@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Feedback</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Enviar Feedback</h1>
+    <form id="feedbackForm">
+        <input type="email" id="email" placeholder="Seu email" required />
+        <textarea id="message" placeholder="Sua mensagem" required></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+    <script src="js/scripts.js"></script>
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            const response = await fetch('http://localhost:3000/feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, message }),
+            });
+
+            if (response.ok) {
+                alert('Feedback enviado com sucesso!');
+            } else {
+                alert('Erro ao enviar feedback.');
+            }
+        });
+    </script>
+</body>
+</html>

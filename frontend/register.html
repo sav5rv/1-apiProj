@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Registro</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Registrar Usuário</h1>
+    <form id="registerForm">
+        <input type="text" id="name" placeholder="Nome" required />
+        <input type="number" id="age" placeholder="Idade" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="tel" id="phone" placeholder="Telefone" required />
+        <input type="password" id="password" placeholder="Senha" required />
+        <button type="submit">Registrar</button>
+    </form>
+    <script src="js/scripts.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('http://localhost:3000/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, age, email, phone, password }),
+            });
+
+            if (response.ok) {
+                alert('Registro bem-sucedido!');
+                window.location.href = 'login.html';
+            } else {
+                alert('Erro ao registrar. Verifique os dados e tente novamente.');
+            }
+        });
+    </script>
+</body>
+</html>
